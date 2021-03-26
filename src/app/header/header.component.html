@@ -1,0 +1,11 @@
+<div class="header">
+  <div class="home">
+    <button mat-button routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Trang chủ</button>
+  </div>
+  <div class="login" >
+    <button (click)="onGoogleLoginClick()" mat-raised-button color="primary">
+      Đăng nhập bằng Google
+    </button>
+  </div>
+</div>
+

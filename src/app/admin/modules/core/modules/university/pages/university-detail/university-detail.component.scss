@@ -1,0 +1,221 @@
+.university-detail {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow: auto;
+  position: relative;  
+  // max-height: 50rem;
+}
+
+span.label {
+  margin: 0.2rem;
+}
+
+nz-avatar {
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+}
+
+.p-l-30 {
+  padding-left: 30px !important;
+}
+
+.m-v-15 {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.text-gray {
+  color: #72849a !important;
+}
+.p-r-20 {
+  padding-right: 20px !important;
+}
+
+th {
+  font-size: 13px;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+td {
+  font-size: 13px;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  text-align: center;
+  width: 10%;
+}
+
+.stt,
+.code,
+.action {
+  width: 2%;
+}
+.numberOfStudent {
+  width: 4%;
+}
+
+.name {
+  width: 15%;
+}
+
+.flex-container-custom {
+  display: flex;
+  flex-direction: column;
+}
+
+.td-border-children {
+  border-bottom: 1px solid #f0f0f0;
+  height: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.td-border-children:last-child {
+  border-bottom: none;
+}
+
+.label-form {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  // width: 80px;
+}
+
+.rating {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 60px;
+}
+
+label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 500;  
+  margin: 0;
+}
+
+.bold500 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 500;
+}
+
+.groupCodeName, .mark2019, .mark2020 {
+  width: 5%;
+}
+
+.inline-items-input {
+  padding-left: 0;  
+}
+
+.inline-items-label-code {
+  padding-left: 0;
+  width: 40px;
+}
+
+.inline-items-input-code {
+  padding-left: 0;
+  width: 76px;
+}
+
+nb-select {
+  ::ng-deep {
+    button {
+      min-width: 4rem !important;
+    }
+  }
+}
+
+@media (min-width: 1366px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 57px;
+  }
+}
+
+@media (min-width: 1500px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 76px;
+  }
+}
+@media (min-width: 1530px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 86px;
+  }
+}
+@media (min-width: 1520px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 84px;
+  }
+}
+@media (min-width: 1501px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 82px;
+  }
+}
+@media (min-width: 1560px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 90px;
+  }
+}
+
+@media (min-width: 1560px){
+  .inline-items-input-code {
+    padding-left: 0;
+    width: 90px;
+  }
+}
+
+@media (max-width: 1600px) {
+  label {
+    font-size: 14px;
+  }  
+}
+
+
+
+@media (max-width: 1434px) {
+  label {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1289px) {
+  label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 991px) {
+  label {
+    font-size: 12px;
+  }
+  .inline-items-input {
+    padding-left: 15px;
+  }
+  .inline-items-label {
+    padding-left: 15px;
+  }
+  .inline-items-label-code {
+    padding-left: 15px;
+    width: 100%;
+  }
+  .inline-items-input-code {
+    padding-left: 15px;    
+  }
+}
+

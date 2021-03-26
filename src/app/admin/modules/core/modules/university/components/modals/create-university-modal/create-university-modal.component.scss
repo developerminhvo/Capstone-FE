@@ -1,0 +1,55 @@
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;    
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-auto {
+    flex: 1 1 auto;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.footer {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1rem;
+}
+
+.footer button {
+    margin: 0 0 0 1rem;
+}
+
+
+.ant-upload {
+    width: 200px !important;
+}
+
+nb-select {
+    ::ng-deep {
+      button {
+        min-width: 5rem !important;
+      }
+    }
+}
+
+.must-required {
+    color: red;
+}
+
+label {
+    // font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-weight: 500;
+}

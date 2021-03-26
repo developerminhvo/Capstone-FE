@@ -1,0 +1,24 @@
+<div class="custom-select py-2 px-0">
+  <nb-form-field class="w-100 px-2 mb-1">
+    <input nbInput status="info" [formControl]="searchControl" fullWidth size="small" [placeholder]="placeholder" />
+    <nb-icon icon="search-outline" nbSuffix></nb-icon>
+  </nb-form-field>
+  <div class="scroll-item" nz-menu>
+    <div class="select-item" nz-menu-item *ngFor="let item of dataFilters; let i = index" (click)="selecteItem(item)">
+      <b>{{item[label]}}</b>
+    </div>
+  </div>
+  <div *ngIf="dataFilters.length === 0" class="addNewItem">
+    <div style="display: flex; justify-content: center;align-items: center; margin-bottom: 1rem;">
+      <span style="font-size: small; font-weight: 500;">Không có sẵn, hoặc đã tồn tại</span>
+    </div>    
+    <div style="display: flex; justify-content: center;align-items: center;">
+      <button (click)="open()" size="small" nbButton status="info" >      
+        <nb-icon size="small" icon="plus-outline"></nb-icon>
+        <span style="font-size: small;">Thêm {{titleNewItem}}</span>
+      </button>  
+      <div [nbPopover]="templateRef" nbPopoverTrigger="noop" nbPopoverPlacement="right"></div>    
+    </div>    
+  </div>
+</div>
+

@@ -1,0 +1,33 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 56px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    height: 56px;
+    width: calc(100% - 56px);
+    z-index: 1000;
+    border-bottom: 1px solid #e5e5e5;    
+    img.logo {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 56px;
+        height: 56px;
+    }
+}
+
+@media (max-width: 789px) {
+    header {
+        left: 0;
+        width: 100%;
+        img.logo {
+            display: none;
+            // opacity: 1;
+        }
+    }
+}

@@ -1,0 +1,137 @@
+<div>
+  <div class="flex items-center py-3">
+    <div class="text-xl">{{modalTitle}}</div>
+    <div class="flex-auto"></div>
+    <button nbButton (click)="closeModal()"><nb-icon pack="eva" icon="close-outline"></nb-icon></button>
+  </div>
+
+
+  
+  <div class="flex">
+    <div class="col-md-12">
+      <label for="">Tên Ngành <span style="color: red;">*</span></label>            
+      <nb-form-field>
+        <nb-icon nbPrefix icon="briefcase-outline"></nb-icon>
+        <input [disabled]="data!=undefined" type="text" [value]="majorForm.get('name').value?.name" readonly nz-dropdown [placeholder]="'Chọn ngành'" [nzDropdownMenu]="selectMajorName" nzTrigger="click" nzPlacement="bottomCenter" fullWidth nbInput
+      [status]="majorForm.get('name').invalid && (majorForm.get('name').touched || majorForm.get('name').dirty) ? 'danger' : 'info'"
+      
+      >
+      </nb-form-field>      
+      <nz-dropdown-menu #selectMajorName="nzDropdownMenu">
+        <app-custom-select [templateRef]="newMajorToSystem" [control]="majorForm.get('name')" [data]="majorResult | async" [name]="'name'" [label]="'name'" [placeholder]="'Tìm kiếm theo tên khối'" [titleNewItem]="'Ngành'"></app-custom-select>
+      </nz-dropdown-menu>
+    </div>                
+  </div>
+
+
+
+
+
+  <div class="flex mt-2">
+    <div class="col-md-6">
+      <label for="">Code <span style="color: red;">*</span></label>
+      <nb-form-field>        
+        <i nbPrefix nz-icon nzType="key" nzTheme="outline"></i>
+        <input readonly [disabled]="data != undefined" [value]="majorForm.get('name').value?.code"  type="text" placeholder="Nhập mã ngành" fullWidth nbInput
+        [status]="majorForm.get('code').invalid && (majorForm.get('code').touched || majorForm.get('code').dirty) ? 'danger' : 'info'"
+        />        
+      </nb-form-field>
+    </div>
+    <div class="col-md-6">
+      <label for="">Chỉ Tiêu <span style="color: red;">*</span></label>
+      <nb-form-field>
+        <nb-icon nbPrefix icon="layers-outline" pack="eva"></nb-icon>
+        <input style="text-align: right;" [formControl]="majorForm.get('numberOfStudent')" mask="separator.2" thousandSeparator=","  type="text" placeholder="Nhập số lượng sinh viên" fullWidth nbInput
+        [status]="majorForm.get('numberOfStudent').invalid && (majorForm.get('numberOfStudent').touched || majorForm.get('numberOfStudent').dirty) ? 'danger' : 'info'"
+        />        
+      </nb-form-field>
+    </div>    
+  </div>
+  <div *ngFor="let field of listField; let i = index" class="flex mt-2">
+    <div class="col-md-6">
+      <label for="">Khối <span style="color: red;">*</span></label>
+      <nb-form-field>
+        <nb-icon nbPrefix icon="cube-outline"></nb-icon>
+        <input [disabled]="field['isUpdate']" type="text" [value]="field.get('subjectGroup').value?.groupCode" readonly nz-dropdown [placeholder]="'Chọn khối'" [nzDropdownMenu]="selectGroupCode" nzTrigger="click" nzPlacement="bottomCenter" fullWidth nbInput
+      [status]="field.get('subjectGroup').invalid && (field.get('subjectGroup').touched || field.get('subjectGroup').dirty) ? 'danger' : 'info'"
+      >
+      </nb-form-field>
+      
+      <nz-dropdown-menu #selectGroupCode="nzDropdownMenu">
+        <app-custom-select [control]="field.get('subjectGroup')" (useSelect)="useSelect($event)"  [data]="listOfDisplaySubjectGroup | async" [name]="'id'" [label]="'groupCode'" [placeholder]="'Tìm kiếm theo tên khối'" [titleNewItem]="'Khối'"></app-custom-select>
+      </nz-dropdown-menu>      
+    </div>    
+    <div [class]="listField.length === 1 ? 'col-md-3': 'col-md-2 pr-0'">
+      <label for="" style="font-size: smaller;">Điểm chuẩn 2019</label>
+      <nb-form-field>
+        <nb-icon nbPrefix icon="edit-2-outline"></nb-icon>
+        <input [class.isUpdate]="field['isUpdate']"  [formControl]="field.get('entryMark1')" mask="separator.2" style="text-align: right;" thousandSeparator="," type="text" placeholder="Nhập điểm" fullWidth nbInput
+      [status]="field.get('entryMark1').invalid && (field.get('entryMark1').touched || field.get('entryMark1').dirty) ? 'danger' : 'info'"/> 
+      </nb-form-field>             
+    </div>
+    <div [class]="listField.length === 1 ? 'col-md-3': 'col-md-2 pr-0'">     
+      <label for="" style="font-size: smaller;">Điểm chuẩn 2020</label> 
+      <nb-form-field>
+        <nb-icon nbPrefix icon="edit-2-outline"></nb-icon>
+        <input [formControl]="field.get('entryMark2')" type="text" style="text-align: right;" mask="separator.2" thousandSeparator="," placeholder="Nhập điểm" fullWidth nbInput
+        [status]="field.get('entryMark2').invalid && (field.get('entryMark2').touched || field.get('entryMark2').dirty) ? 'danger' : 'info'"  
+        /> 
+      </nb-form-field>             
+    </div>
+    <div [class]="listField.length != 1 ? 'col-md-2 d-flex justify-content-end pt-4': 'display-none'">            
+      <button (click)="removeField(i, field)" nbButton status="danger">
+        <nb-icon icon="minus-outline"></nb-icon>
+      </button>       
+    </div>
+  </div>
+
+    
+
+
+  <div class="footer">
+    <button (click)="addField()" nz-button nzType="default" nz-tooltip>
+      <nb-icon icon="plus"></nb-icon>
+    </button>
+    <button *ngIf="!data" (click)="submitForm()" [disabled]="majorForm?.invalid || checkValidateListField()" nz-button [nzSize]="'medium'" nzType="primary">
+      Thêm 
+    </button>
+    <button *ngIf="data" (click)="updateForm()" [disabled]="majorForm?.invalid || checkValidateListField()" nz-button [nzSize]="'medium'" nzType="primary">
+      Lưu 
+    </button>
+    <button (click)="cancle()"  nz-button [nzSize]="'medium'" nzType="basic">
+      Thoát 
+    </button>
+  </div>
+</div>
+
+<ng-template #newMajorToSystem>  
+  <div style="width: 300px; height: 220px;">
+    <div class="flex-custom-container">
+      <header>Thêm ngành mới vào hệ thống</header>
+      <div class="form-content mt-3 mb-3">
+        <div class="col-md-12">
+          <nb-form-field>
+            <nb-icon nbPrefix icon="briefcase-outline"></nb-icon>
+            <input nbInput fullWidth status="info" placeholder="Nhập tên ngành" [formControl]="majorSystemForm.get('majorSystemName')"
+            [status]="majorSystemForm.get('majorSystemName').invalid && (majorSystemForm.get('majorSystemName').touched || majorSystemForm.get('majorSystemName').dirty) ? 'danger' : 'info'"
+            />
+          </nb-form-field> 
+        </div>
+        <div class="col-md-12 mt-3">
+          <nb-form-field>
+            <i nbPrefix nz-icon nzType="key" nzTheme="outline"></i>
+            <input nbInput fullWidth status="info" placeholder="Nhập code của ngành" [formControl]="majorSystemForm.get('majorSystemCode')"
+            [status]="majorSystemForm.get('majorSystemCode').invalid && (majorSystemForm.get('majorSystemCode').touched || majorSystemForm.get('majorSystemCode').dirty) ? 'danger' : 'info'"
+            />
+          </nb-form-field> 
+        </div>         
+      </div>
+      <footer>
+        <div class="action-footer">
+          <button (click)="addNewMajorSystem()" nbButton size="small" status="info">Lưu</button>
+          <button (click)="hidePopover()" class="ml-2" nbButton size="small" status="danger">Hủy</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+</ng-template>

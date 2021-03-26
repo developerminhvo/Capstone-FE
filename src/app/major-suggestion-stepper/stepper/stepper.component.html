@@ -1,0 +1,227 @@
+<mat-horizontal-stepper linear #stepper>
+  <mat-step #stepOne [stepControl]="secondFormGroup" editable="true">
+    <div class="center">
+      <form *ngIf="secondFormGroup == null">
+        <div class="card-body">
+          <mat-spinner
+            style="margin-left: auto; margin-right: auto"
+            color="accent"
+            diameter="30"
+          >
+          </mat-spinner>
+        </div>
+      </form>
+      <form
+        *ngIf="secondFormGroup != null; elseNull"
+        [formGroup]="secondFormGroup"
+        (ngSubmit)="onScoreSubmit()"
+      >
+        <ng-template matStepLabel>Nhập điểm</ng-template>
+        <h1 style="text-align: center; margin: 20px 0px 20px 0px">Nhập điểm trung bình học bạ hoặc điểm thi THPT Quốc gia</h1>
+        <div >
+          <mat-form-field *ngFor="let subject of subjects; let i = index">
+            <mat-label>{{ subject.name }}</mat-label>
+            <input
+              style="text-align: right"
+              type="number"
+              min="0"
+              max="10"
+              matInput
+              formControlName="{{ subject.id }}"
+              placeholder="Điểm {{ subject.name }}"
+              required
+            />
+            <mat-error
+              *ngIf="_generalService.hasErrorInputValidation(subject.id, 'required', secondFormGroup)"
+            >
+              Vui lòng không để trống
+            </mat-error>
+            <mat-error
+              *ngIf="_generalService.hasErrorInputValidation(subject.id, 'max', secondFormGroup)"
+            >
+              Mark between <strong>0 - 10</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="_generalService.hasErrorInputValidation(subject.id, 'min', secondFormGroup)"
+            >
+              Mark between <strong>0 - 10</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="width: 100%; margin: auto;">
+          <button style="margin: 15px 40%;" mat-raised-button color="primary" matStepperNext>
+            Xem kết quả
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-step>
+  <mat-step #stepTwo >
+    <ng-template matStepLabel>Kết quả</ng-template>
+    <div class="center" >
+      <!-- <mat-grid-list [cols]="column" rowHeight="100px">
+        <mat-grid-tile
+            *ngFor="let tile of finalResultTiles"
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color">
+            <div *ngIf="!tile.isUsed">
+              <div class="circle">{{tile.suggestedGroup.name}}</div>
+            </div>
+            <div *ngIf="tile.isUsed"  >
+              <div style="font-weight: bold;">Total marks: {{ tile.suggestedGroup.totalMark }}</div>
+              <mat-selection-list [multiple]="false">
+                <div *ngIf="tile.suggestedGroup.suggestedMajors">
+                  <mat-list-option *ngFor="let major of tile.suggestedGroup.suggestedMajors">
+                    <div (click)="getUniversity(tile.suggestedGroup.id, major.id, tile.suggestedGroup.totalMark)">{{ major.name}}</div>
+                    <mat-divider></mat-divider>
+                  </mat-list-option>
+                </div>
+              </mat-selection-list>
+            </div>
+        </mat-grid-tile>
+      </mat-grid-list> -->
+      <div fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="flex-start" style="width: 100%; height: 580px;">
+        <div *ngIf="suggestedSubjectsGroup && suggestedSubjectsGroup[1]" fxFlex="0 1 calc(32% -32px )" >
+          <div style="padding-top: 50px; ">
+            <div style="height: 450px; padding: 10px; background-color: rgb(28, 121, 158); border-radius: 30px;" >  
+              <div style="height: 100%; background-color: azure; border-radius: 30px;">
+                <div style="height: 15%; background-color: rgb(125, 210, 231); border-radius: 30px 30px 0px 0px;">
+                  <div class="top-title-2">Top 2</div>
+                </div>
+                <div style="height: 30%; background-color: rgb(231, 238, 240);">
+                  <div style="height: 100%; padding-top: 8px;">
+                    <div style="background-color: rgb(82, 221, 240); height: 120px; width: 120px; display: flex; margin: auto; border-radius: 50%;">
+                      <div style="background-color: rgb(11, 69, 192); height: 100px; width: 100px; margin: auto; border-radius: 50%;">
+                        <div class="group-top2-name">{{suggestedSubjectsGroup[1].name}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 55%; background-color: rgb(125, 210, 231); border-radius: 0px 0px 30px 30px;">
+                  <div style="height: 100%; padding: 12px;">
+                    <button *ngFor="let major of suggestedSubjectsGroup[1].suggestedMajors" style="width: 100%;" mat-button (click)="getUniversity(suggestedSubjectsGroup[1].id, major.id, suggestedSubjectsGroup[1].totalMark)">{{major.name}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Top 1 -->
+        <div *ngIf="suggestedSubjectsGroup && suggestedSubjectsGroup[0]" fxFlex="0 1 calc(36% - 32px)">
+            <div style="height: 550px; padding: 10px; background-color: rgb(28, 121, 158); border-radius: 30px;" >  
+              <div style="height: 100%; background-color: azure; border-radius: 30px;">
+                <div style="height: 15%; background-color: rgb(125, 210, 231); border-radius: 30px 30px 0px 0px;">
+                  <div class="top-title-1">Top 1</div>
+                </div>
+                <div style="height: 30%; background-color: rgb(231, 238, 240);">
+                  <div style="height: 100%; padding-top: 12px;">
+                    <div style="background-color: rgb(82, 221, 240); height: 140px; width: 140px; display: flex; margin: auto; border-radius: 50%;">
+                      <div style="background-color: rgb(11, 69, 192); height: 120px; width: 120px; margin: auto; border-radius: 50%;">
+                        <div class="group-top1-name">{{suggestedSubjectsGroup[0].name}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 55%; background-color: rgb(125, 210, 231); border-radius: 0px 0px 30px 30px;">
+                  <div style="height: 100%; padding: 12px;">
+                  <button *ngFor="let major of suggestedSubjectsGroup[0].suggestedMajors" style="width: 100%;" mat-button (click)="getUniversity(suggestedSubjectsGroup[0].id, major.id, suggestedSubjectsGroup[0].totalMark)">{{major.name}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- Top 3 -->
+        <div *ngIf="suggestedSubjectsGroup && suggestedSubjectsGroup[2]" fxFlex="0 1 calc(32% - 32px)">
+          <div style="padding-top: 50px;">
+            <div style="height: 450px; padding: 10px; background-color: rgb(28, 121, 158); border-radius: 30px;" >  
+              <div style="height: 100%; background-color: azure; border-radius: 30px;">
+                <div style="height: 15%; background-color: rgb(125, 210, 231); border-radius: 30px 30px 0px 0px;">
+                  <div class="top-title-2">Top 3</div>
+                </div>
+                <div style="height: 30%; background-color: rgb(231, 238, 240);">
+                  <div style="height: 100%; padding-top: 8px;">
+                    <div style="background-color: rgb(82, 221, 240); height: 120px; width: 120px; display: flex; margin: auto; border-radius: 50%;">
+                      <div style="background-color: rgb(11, 69, 192); height: 100px; width: 100px; margin: auto; border-radius: 50%;">
+                        <div class="group-top2-name">{{suggestedSubjectsGroup[2].name}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 55%; background-color: rgb(125, 210, 231); border-radius: 0px 0px 30px 30px;">
+                  <div style="height: 100%; padding: 12px;">
+                  <button *ngFor="let major of suggestedSubjectsGroup[2].suggestedMajors" style="width: 100%;" mat-button (click)="getUniversity(suggestedSubjectsGroup[2].id, major.id, suggestedSubjectsGroup[2].totalMark)">{{major.name}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+      <!-- <div style="margin-top: 25px;">
+        <button mat-raised-button color="warn" matStepperPrevious>Trở lại</button>
+        <button mat-raised-button color="primary" class="btn-step-one">Xem thêm</button>
+      </div> -->
+  </div>
+  </mat-step>
+  <mat-step  #stepThree >
+    <ng-template matStepLabel>Danh sách trường</ng-template>
+    <div class="center">
+      <mat-grid-list [cols]="2" rowHeight="320px" [gutterSize]="'20px'">
+        <mat-grid-tile *ngFor="let university of universities" [colspan]="1" [rowspan]="1" style=" border-radius: 3%; ">
+          <div style="height: 100%; width: 100%;">
+            <mat-grid-list [cols]="2" rowHeight="80px">
+              <mat-grid-tile [colspan]="2" [rowspan]="1" style="background-color: lightblue;">
+                <div style="font-size: 1.5em; font-weight: bold; text-align: center;">{{ university.name }}</div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="3">
+                <img width="100%" height="100%" src="{{ university.logoUrl }}" alt="">
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="2" style="background-color: rgb(192, 238, 238);">
+                <div>Mô tả: {{university.infomation}}</div>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1" style="background-color: lightblue;">
+                <button mat-raised-button color="accent" (click)="loadTests(university.id)">Thi thử</button>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+          
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div style="margin-top: 25px;">
+        <button mat-raised-button matStepperPrevious color="warn">Trở lại</button>
+      </div>
+  </div>
+  </mat-step>
+  <mat-step  #stepFour >
+    <ng-template matStepLabel>Danh sách bài thi</ng-template>
+    <div class="center" >
+    <div fxLayout="row wrap" fxLayoutGap="32px grid" fxLayoutAlign="flex-start">
+      <div *ngFor="let subjectBasedTests of tests" fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%">
+        <h2 *ngIf="getSubjectName(subjectBasedTests.subjectId)">Môn: {{subjectName}}</h2>
+        <h2 *ngIf="subjectBasedTests.universityId">{{getUniversityName(subjectBasedTests.universityId)}}</h2>
+        <div class="test-scroll">
+          <div *ngFor="let test of subjectBasedTests.tests" style="margin-bottom: 10px;">
+            <app-test-card [test]="test" (testSelected)="onTestSelected($event)"></app-test-card>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div style="margin-top: 25px;">
+    <button mat-raised-button matStepperPrevious color="warn">Trở lại</button>
+  </div>
+</div>
+  </mat-step>
+  <mat-step  #stepFive >
+    <ng-template matStepLabel>Làm bài thi</ng-template>
+    <div >
+      <app-exam-page></app-exam-page>
+      
+      <div >
+        <!-- <button mat-button matStepperPrevious>Trở lại</button>
+        <button mat-button class="btn-step-one" (click)="stepper.reset()">Reset</button> -->
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,0 +1,30 @@
+<div class="center">
+  <div style="margin-left: 28%;">
+    <mat-form-field>
+      <mat-label>Họ và tên</mat-label>
+      <input style="text-align: right" type="text" matInput placeholder="Họ và tên" required/>
+    </mat-form-field>
+    
+    <mat-form-field class="example-full-width" style="margin-left: 15%;">
+      <mat-label>Trường THPT</mat-label>
+      <input type="text"
+             placeholder="Chọn..."
+             aria-label="Trường THPT"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div style="width: 100%; margin-top: 30px;">
+    <button style="margin-left: 44%;"  mat-raised-button color="primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="../stepper">
+      Gợi ý ngành học
+    </button>
+  </div>
+</div>
+
+<button nz-button nzType="primary">Primary Button</button>

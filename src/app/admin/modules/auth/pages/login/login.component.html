@@ -1,0 +1,47 @@
+<nb-layout>
+    <nb-layout-column style="padding: 0">
+        <div class="d-flex h-100 p-v-15 flex-column justify-content-between">
+            <header></header>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <nb-card class="p-t-10">
+                            <nb-card-body>
+                                <div class="login_header">
+                                    <div class="title">Đăng Nhập</div>
+                                    <div class="subtitle">
+                                        Nhập tài khoản mật khẩu của bạn để đăng nhập
+                                    </div>
+                                </div>
+                                <div class="login_content">
+                                    <label for="">Tài khoản</label>
+                                    <nb-form-field>
+                                        <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
+                                        <input [formControl]="loginForm.get('username')" type="text" placeholder="" [status]="loginForm.get('username').invalid && (loginForm.get('username').touched || loginForm.get('username').dirty) ? 'danger' : 'info'" fullWidth nbInput />
+                                    </nb-form-field>
+                                    <label for="">Mật khẩu</label>
+                                    <nb-form-field>
+                                        <nb-icon nbPrefix icon="lock-outline" pack="eva"></nb-icon>
+                                        <input [formControl]="loginForm.get('password')" [type]="type" placeholder="" status="info" fullWidth nbInput [status]="loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty) ? 'danger' : 'info'" />
+                                        <nb-icon (click)="type = type === 'text' ? 'password' : 'text'" nbSuffix [icon]="
+                        type === 'text' ? 'eye-off-outline' : 'eye-outline'
+                      " pack="eva"></nb-icon>
+                                    </nb-form-field>
+                                </div>
+                                <div class="login_footer">
+                                    <button (click)="login()" nz-button [nzSize]="'large'" nzType="primary">
+                    Đăng nhập
+                  </button>
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
+                    <div class="offset-md-1 col-md-6 d-none d-md-block">
+                        <img src="assets/images/login-2.png" alt="" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+            <footer></footer>
+        </div>
+    </nb-layout-column>
+</nb-layout>

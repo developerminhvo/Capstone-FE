@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+.header {
+  background-color: #e3e3e3;
+  font-weight: 500;
+}
+.submit {
+  // background-color: #e3ffe3;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

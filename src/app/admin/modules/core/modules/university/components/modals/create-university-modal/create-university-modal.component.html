@@ -1,0 +1,175 @@
+<div>
+  <div class="flex items-center py-3">    
+    <div class="text-xl">Thêm Trường</div>
+    <div class="flex-auto"></div>
+    <button nbButton (click)="closeModal()"><nb-icon pack="eva" icon="close-outline"></nb-icon></button>
+  </div>
+  
+  <div class="flex">        
+    <div class="col-md-6">
+      <label for="">Tên Trường <span class="must-required">*</span></label>
+      <nb-form-field>        
+        <nb-icon nbPrefix icon="home-outline" pack="eva"></nb-icon>
+        <input [formControl]="createUniversityForm.get('name')" type="text" placeholder="" fullWidth nbInput [status]="createUniversityForm.get('name').invalid && (createUniversityForm.get('name').touched || createUniversityForm.get('name').dirty) ? 'danger' : 'basic'"/>
+      </nb-form-field>
+    </div>
+    <div class="col-md-6">
+      <label for="">Code <span class="must-required">*</span></label>
+      <nb-form-field>        
+        <i nbPrefix nz-icon nzType="key" nzTheme="outline"></i>
+        <input [formControl]="createUniversityForm.get('code')" type="text" placeholder="" fullWidth nbInput [status]="createUniversityForm.get('code').invalid && (createUniversityForm.get('code').touched || createUniversityForm.get('code').dirty) ? 'danger' : 'basic'"/>        
+      </nb-form-field>
+    </div>            
+  </div>
+  <div class="flex mt-3">
+    <div class="col-md-9">
+      <div class="flex">
+        <div class="col-md-12 pl-0">
+          <label for="">Địa Chỉ <span class="must-required">*</span></label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="pin-outline" pack="eva"></nb-icon>
+            <input [formControl]="createUniversityForm.get('address')" type="text" placeholder="" fullWidth nbInput/>        
+          </nb-form-field>
+        </div>
+      </div> 
+      <div class="flex mt-3">
+        <div class="col-md-6 pl-0">
+          <label for="">Địa chỉ website <span class="must-required">*</span></label>
+            <nb-form-field>
+              <nb-icon nbPrefix icon="link-2-outline" pack="eva"></nb-icon>
+              <input [formControl]="createUniversityForm.get('webUrl')" type="text" placeholder="" fullWidth nbInput/>        
+            </nb-form-field>
+        </div>
+        <div class="col-md-6 pl-0">
+          <label for="">Số điện thoại <span class="must-required">*</span></label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="phone-outline" pack="eva"></nb-icon>
+            <input [formControl]="createUniversityForm.get('phone')" type="text" placeholder="" fullWidth nbInput/>        
+          </nb-form-field>
+        </div>
+      </div>           
+    </div> 
+    <div class="col-md-3">
+      <label class=" d-flex justify-content-center align-items-center" for="">Logo</label>
+      <div class="flex">        
+        <div class="col-md-12 d-flex justify-content-center align-items-center p-0">
+          <div style="width: 125px; height: 125px; border: 1px solid #000;" class="justify-content-center align-items-center position-relative">
+            <img style="width: 125px; height: 125px;" [src]="logo" alt="" *ngIf="logo">
+            <input #logoUpload type="file" style="display: none;" (change)="uploadLogo($event)">
+            <button (click)="logoUpload.click()" style="top: 47px; left: 47px;" class="position-absolute" nbButton size="small">
+              <nb-icon icon="upload-outline"></nb-icon>          
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="flex mt-3">    
+    <div class="col-md-12">
+      <label for="">Học Phí <span class="must-required">*</span></label>
+      <div class="d-flex">
+        <div class="p-0" style="width: 214.5px ; position: relative;">
+          <span style="
+            position: absolute;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            left: 15px;
+            font-weight: 500;
+        ">Từ</span>
+          <span style="
+            position: absolute;
+            height: 100%;
+            display: flex;
+            right: 15px;
+            align-items: center;
+            font-weight: 500;
+        ">.000 (VND)</span>
+          <nb-form-field>                              
+            <input nbInput type="text" style="text-align: right; padding-left: 5.1rem; padding-right: 5.1rem;" [formControl]="createUniversityForm.get('tuitionFrom')" fullWidth mask="separator.2" thousandSeparator=".">
+          </nb-form-field>                            
+        </div>
+        <div class="p-0" style="width: 214.5px ; position: relative; margin-left: 15px;">
+          <span style="
+            position: absolute;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            left: 15px;
+            font-weight: 500;
+        ">Đến</span>
+          <span style="
+            position: absolute;
+            height: 100%;
+            display: flex;
+            right: 15px;
+            align-items: center;
+            font-weight: 500;
+        ">.000 (VND)</span>
+          <nb-form-field>                              
+            <input nbInput type="text" style="text-align: right; padding-left: 4.9rem; padding-right: 5.1rem;" [formControl]="createUniversityForm.get('tuitionTo')" fullWidth mask="separator.2" thousandSeparator=".">
+          </nb-form-field>                            
+        </div>
+        <div style="width: 163px; margin-left: 15px;">
+          <nb-select style="width: 100%" [formControl]="createUniversityForm.get('tuitionType')">        
+            <nb-option [value]="0">Trên một năm</nb-option>
+            <nb-option [value]="1">Trên một kì</nb-option>        
+          </nb-select>
+        </div>
+      </div>
+    </div>
+
+  </div> 
+
+
+
+  <div class="flex mt-3">
+    <div class="col-md-6">
+      <label for="">Trạng Thái</label>
+      <nb-select [formControl]="createUniversityForm.get('status') " [selected]="'1'" fullWidth>        
+        <nb-option [value]="1">Hoạt Động ✔️</nb-option>
+        <nb-option [value]="0">Không Hoạt Động ❌</nb-option>        
+      </nb-select>
+    </div>    
+    <div class="col-md-6">
+      <label for="">Đánh Giá</label>
+      <nb-select [formControl]="createUniversityForm.get('rating')" fullWidth>        
+        <nb-option [value]="1">
+          ⭐️
+        </nb-option>
+        <nb-option [value]="2">
+          <div>⭐️⭐️</div>
+        </nb-option>
+        <nb-option [value]="3">
+          <div>⭐️⭐️⭐️</div>
+        </nb-option>
+        <nb-option [value]="4">
+          <div>⭐️⭐️⭐️⭐️</div>
+        </nb-option>
+        <nb-option [value]="5">
+          <div>⭐️⭐️⭐️⭐️⭐️</div>
+        </nb-option>
+      </nb-select>
+    </div>
+  </div> 
+  <div class="flex mt-3">
+    <div class="col-md-12">
+      <label for="">Miêu Tả</label>        
+      <quill-editor
+        [formControl]="createUniversityForm.get('description')"
+        class="content-editor"        
+        [modules]="editorOptions"
+        [placeholder]="''"
+      ></quill-editor>
+    </div> 
+  </div>
+  
+  <div class="footer">
+    <button (click)="submitForm()" [disabled]="createUniversityForm?.invalid" nz-button [nzSize]="'medium'" nzType="primary">
+      Thêm 
+    </button>
+    <button (click)="cancel()" nz-button [nzSize]="'medium'" nzType="basic">
+      Thoát 
+    </button>
+  </div>
+</div>

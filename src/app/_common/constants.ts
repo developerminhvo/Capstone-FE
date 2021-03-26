@@ -1,0 +1,3 @@
+export const NUMBER_OF_DEFAULT_COLUMNS = 3;
+export const DEFAULT_UNSELECTED_ANSWER = "0";
+export const DEFAULT_SELECTED_ANSWER = "1";

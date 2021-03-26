@@ -1,0 +1,35 @@
+nb-card {
+    padding: 3rem 0;
+}
+
+nb-form-field {
+    margin: 0 0 1rem 0;
+}
+
+.login_header {
+    padding: 1rem;
+}
+
+.login_header .title {
+    font-size: large;
+}
+
+.login_header .subtitle {
+    font-size: medium;
+    font-family: monospace;
+}
+
+.login_content {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.login_content label {
+    font-size: large;
+    font-family: ui-monospace;
+}
+
+.login_footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1rem;
+}

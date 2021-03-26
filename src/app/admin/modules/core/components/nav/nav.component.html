@@ -1,0 +1,23 @@
+<nav class="admin-nav">
+  <a class="admin-logo" [nbTooltip]="'Thành Đoàn'" [nbTooltipPlacement]="'end'">
+    <img src="assets/192x192.png" />
+  </a>
+  <a
+    class="admin-menu-item"
+    [nbTooltip]="'Dashboard'"
+    [nbTooltipPlacement]="'end'"
+    (click)="useUpdate('dashboard')"
+  >
+    <nb-icon [icon]="'home'" [pack]="'eva'"></nb-icon>
+    <b>Dashboard</b>
+  </a>
+  <a
+    class="admin-menu-item"
+    [nbTooltip]="'Trường'"
+    [nbTooltipPlacement]="'end'"
+    (click)="useUpdate('university')"
+  >
+    <nb-icon [icon]="'book-open-outline'" [pack]="'eva'"></nb-icon>
+    <b>Trường</b>
+  </a>
+</nav>

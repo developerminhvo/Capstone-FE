@@ -1,0 +1,160 @@
+<div class="university-main">
+  <div class="page-header">
+    <div class="row align-items-md-center">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="text-md-left ">
+              <nb-form-field>
+                <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                <input fieldSize="small" type="text" placeholder="Tìm kiếm trường đại học" fullWidth nbInput [ngModel]="searchValueName" (ngModelChange)="searchByName($event)"/>
+              </nb-form-field>
+            </div>                        
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="text-md-right m-v-10">
+          <button size="small" nbButton status="info" (click)="openCreateUniversityModal()">
+            <nb-icon icon="plus-outline"></nb-icon>
+            <span style="margin-left: 0.2rem;">Thêm trường</span>
+          </button>
+          <!-- <button nz-button nzType="primary"><nb-icon icon="plus-outline" pack="eva"></nb-icon>Thêm trường</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div nz-row>
+      <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24" [nzXXl]="24" class="mb-2">
+        <nb-card style="margin: auto; width: 99%; position: relative">
+          <nb-card-body style="width: 100%">
+            <div style="width: 100%; max-height: 47rem">
+              <nz-table #basicTable
+                nzBordered 
+                nzShowSizeChanger 
+                nzShowQuickJumper
+                [nzData]="listOfDisplayUniversity" 
+                nzFrontPagination=true                
+                [nzTotal]="total" 
+                [nzPageSize]="pageSize" 
+                [nzPageIndex]="pageIndex"  
+                [nzShowTotal]="totalTemplate"
+                [nzPageSizeOptions]="[5, 10, 15]" 
+                [nzScroll]="{ y: '38rem', x: '50rem' }"                            
+              >
+                <thead >
+                  <tr>
+                    <th nzWidth="5%" style="background-color: #87ceeb; text-align: center;">STT</th>
+                    <th style="background-color: #87ceeb;">Tên Trường</th>
+                    <th nzWidth="6%" style="background-color: #87ceeb; text-align: center;">Code</th>
+                    <th style="background-color: #87ceeb;">Địa Chỉ</th> 
+                    <th style="background-color: #87ceeb;"
+                    [nzFilterMultiple]="false"                    
+                    [nzFilters]="listOfTuitionType"
+                    [nzFilterFn]="filterTuitionTypeFn"
+                    >Học Phí (Đơn vị: VNĐ)</th>                   
+                    <th nzWidth="12%" style="background-color: #87ceeb; text-align: center;">Thông Tin Liên Hệ</th>
+                    <th nzWidth="13%" style="background-color: #87ceeb; text-align: center;"  
+                    [nzFilterMultiple]="false"                    
+                    [nzFilters]="listOfStatusFilter"
+                    [nzFilterFn]="filterStatusFn"                    
+                    >Trạng Thái</th>
+                    <th nzWidth="5%" style="background-color: #87ceeb; text-align: center;">Thao Tác</th>
+                  </tr>
+                </thead>
+                <tbody>                  
+                  <tr *ngFor="let university of basicTable.data; let i = index" [style.backgroundColor]="i % 2 == 1 ? '#f5f5f5' : '#fff'">
+                    <ng-template #missaddress>
+                      <div style="text-align: center; width: 100%; cursor: pointer;" nbTooltip="Thông tin địa chỉ đang bị thiếu, cần được bổ sung" nbTooltipStatus="danger">
+                        <a [routerLink]="['details/' + university.id]" routerLinkActive="router-link-active" >
+                          <nb-icon icon="close-outline" status="danger" size=""></nb-icon>
+                        </a>                        
+                      </div>  
+                    </ng-template>
+                    <ng-template #missTuitionYear style="cursor: pointer;">
+                      <div style="text-align: center; width: 100%; cursor: pointer;" nbTooltip="Thông tin học phí đang bị thiếu, cần được bổ sung" nbTooltipStatus="danger">
+                        <nb-icon icon="close-outline" status="danger"></nb-icon>
+                      </div>
+                    </ng-template>
+                    <td class="stt" style="text-align: center;">{{university.stt}}</td>
+                    <td class="name">
+                      <div class="align-items-center">                        
+                        {{ university.name }}           
+                      </div>
+                    </td>
+                    <td class="code" style="text-align: center;">{{ university.code }}</td>
+                    <td>
+                      <span *ngIf="university.address !== ''; else missaddress">
+                        {{ university.address }}
+                      </span>                        
+                    </td>
+                    <td class="tuition">
+                      <p *ngIf="university.tuitionType == 0">
+                        <span *ngIf="university.tuitionFrom != null; else missTuitionYear">{{university.tuitionFrom | mask: 'separator':'.'}}</span><span *ngIf="university.tuitionFrom != null">.000</span>
+                        <span *ngIf="university.tuitionFrom != null || university.tuitionTo != null"> - </span> 
+                        <span *ngIf="university.tuitionFrom != null">{{university.tuitionTo | mask: 'separator':'.'}}</span><span *ngIf="university.tuitionFrom != null">.000</span>
+                        <span *ngIf="university.tuitionFrom != null || university.tuitionTo != null"> / Năm</span>                                                     
+                      </p>
+                      <p *ngIf="university.tuitionType != 0">
+                        <span *ngIf="university.tuitionFrom != null; else missTuitionSemester">{{university.tuitionFrom | mask: 'separator':'.'}}</span ><span *ngIf="university.tuitionTo != null">.000</span>
+                        <span *ngIf="university.tuitionFrom != null || university.tuitionTo != null"> - </span> 
+                        <span *ngIf="university.tuitionFrom != null">{{university.tuitionTo | mask: 'separator':'.'}}</span><span *ngIf="university.tuitionTo != null">.000</span>
+                        <span *ngIf="university.tuitionFrom != null || university.tuitionTo != null"> / Kì</span>                        
+                      </p>                      
+                    </td>
+                    <td class="phone" style="text-align: center;">
+                      <ng-container *ngFor="let phone of university.phones">
+                        <!-- <span [innerHTML]="phone.trim()"></span><br> -->
+                        <span>{{phone.trim()}}</span><br>
+                      </ng-container>
+                    </td>                    
+                    <td class="status" style="text-align: center;">
+                      <nz-tag [nzColor]="university.status == 1 ? 'success' : 'error'">
+                        <span style="width: 50%;" *ngIf="university.status == 1">Đang hoạt động</span>
+                        <span *ngIf="university.status != 1">Không hoạt động</span>
+                      </nz-tag>
+                    </td>
+                    <td class="action" style="text-align: center;">
+                        <i style="cursor: pointer;" [nzDropdownMenu]="menu1" nz-icon nz-dropdown nzType="ellipsis"></i>
+                        <nz-dropdown-menu #menu1="nzDropdownMenu">
+                            <ul nz-menu>
+                                <li nz-menu-item>
+                                    <a [routerLink]="['details/' + university.id]" routerLinkActive="router-link-active" >
+                                      <i nz-icon nzType="eye" nzTheme="outline"></i>
+                                      <span class="p-3">Xem</span>
+                                    </a>
+                                </li>                                
+                                <li nz-menu-divider></li>
+                                <li nz-menu-item>
+                                    <a>
+                                      <nb-icon [icon]="university.status != 1 ? 'checkmark-outline' : 'close-outline'"></nb-icon>
+                                      <span class="p-3" *ngIf="university.status == 1">Ngưng kích hoạt</span>
+                                      <span class="p-3" *ngIf="university.status != 1">Kích hoạt</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nz-dropdown-menu>
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #totalTemplate>
+  <span>
+    Hiện có {{ total }} trường đại học
+  </span>  
+</ng-template>
+
+
+
+<ng-template #missTuitionSemester style="cursor: pointer;">    
+</ng-template> 
+

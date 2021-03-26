@@ -1,0 +1,12 @@
+.admin-content {
+    width: 100vw;
+    height: 100vh;
+    padding: 56px 0 0 56px;
+    // position: relative;
+}
+
+@media (max-width: 789px) {
+    .admin-content {
+        padding: 56px 0 56px 0;
+    }
+}

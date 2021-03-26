@@ -1,0 +1,76 @@
+
+<div *ngIf="test" fxLayout="row wrap" fxLayoutGap="32px grid" fxLayoutAlign="flex-start">
+  <div fxFlex="0 1 calc(27% - 32px)" fxFlex.lt-sm="100%" >
+    <mat-card class="card">
+      <div *ngIf="!isScored" class="answer_widget">
+        <h4 class="card-header">
+          <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div style="background-color: rgb(139, 119, 224); padding: 10px; border-radius: 10px;">
+              <div class="label">Thời gian</div>
+              <countdown #cd [config]="{ leftTime: 5400, format: 'hh:mm:ss' }" (event)="handleCoundown($event)"></countdown>
+            </div>
+          </div>
+        </h4>
+        <mat-card-content class="card-body p-0">
+          <div>
+            <div *ngFor="let question of test.questions; let i = index" style="display: inline">
+              <app-answer
+                [numericalOrder]="i"
+                [selectedIndex]="selectedIndex"
+              ></app-answer>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-footer fxLayout="column" fxLayoutAlign="space-evenly center">
+          <button mat-raised-button color="primary" type="submit" form="examSubmitForm">Nộp bài</button>
+        </mat-card-footer>
+      </div>
+
+      <div *ngIf="isScored" class="answer_widget">
+        <div  >
+          <h1 mat-dialog-title style="font-weight: 700;">{{test.name}}</h1>
+          <div mat-dialog-content>
+              <p>Điểm:</p>
+              <div class="mark">{{testSubmissionReponse.mark}}</div>
+              <p>Số câu trả lời đúng: <span class="result">{{testSubmissionReponse.numberOfRightAnswers}}/{{testSubmissionReponse.numberOfQuestion}}</span></p>
+              <p>Thời gian làm bài: <span class="result">{{testSubmissionReponse.spentTime}}/90 phút</span></p>
+          </div>
+          <p style="font-size: small; font-style: italic;"><span style="color: rgb(240, 30, 30);">Chú ý:</span> Bạn có thể lưu lại thông tin quá trình gợi ý bằng cách nhấn vào nút "Lưu". Hệ thống sẽ gửi thông tin cho bạn khi trường đại học bạn quan tâm có thông tin mới.</p>
+        </div>        
+        <div mat-dialog-actions>
+          <button mat-button routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/" >Đóng</button>
+          <button mat-button color="primary" (click)="onSave()" cdkFocusInitial>Lưu</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div fxFlex="0 1 calc(73% - 32px)" fxFlex.lt-sm="100%">
+    <mat-card  class="card" class="question_widget">
+      <mat-card-content class="card-body p-0">
+        <form  [formGroup]="examSubmissionFormGroup" id="examSubmitForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let question of test.questions; let i = index">
+          <br/>
+          <span style="font-weight: bold; font-size: 1.2em">Câu {{ i + 1 }}.
+            <div [innerHtml]="question.questionContent | safeHtml"></div>
+          </span>
+          <br/>
+          <mat-radio-group formControlName="{{question.id}}"  aria-label="Select an option">
+            <div *ngFor="let option of question.options; let j = index">
+              <mat-radio-button value="{{ j }}" (click)="getOrderOfQuestion(i)">
+                <p [innerHtml]="option.optionContent | safeHtml"></p>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </form>
+      </mat-card-content>
+    </mat-card>  
+  </div>
+</div>
+
+
+<div *ngIf="test==null" style="margin: auto;">  
+    <mat-spinner style="margin-left:auto; 
+                        margin-right:auto;" color="accent" diameter=30>
+    </mat-spinner>   
+</div>

@@ -1,0 +1,24 @@
+<div gdAreas="name name name | year year submit | time question submit" gdGap="10px" gdRows="auto auto auto"
+	gdAreas.lt-md="name name | year submit | time submit | question submit " gdRows.lt-md="auto auto auto auto">
+
+	<div class="header" gdArea="name">
+		{{test.name}}
+	</div>
+
+	<div class="side" gdArea="year">
+		Năm: {{test.year ? test.year : "2017"}}
+	</div>
+
+	<div class="submit" gdArea="submit">
+		<button mat-raised-button color="primary" (click)="loadTest(test.id)">Thi</button>
+	</div>
+
+  <div class="side" gdArea="time">
+		Thời gian: 90 phút
+	</div>
+
+	<div class="content" gdArea="question">
+		Số câu hỏi: {{test.numberOfQuestion}}
+	</div>
+
+</div>

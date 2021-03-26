@@ -1,0 +1,50 @@
+<div *ngIf="!isLoggedIn" style="width: 100%; height: auto">
+  <div>
+    <h2>Bạn chưa đăng nhập!<br>Vui lòng đăng nhập để lưu thông tin điểm!</h2>
+  </div>
+  <div>
+    <mat-tab-group mat-align-tabs="center" >
+      <mat-tab label="Đăng nhập">
+        <div>
+          <mat-form-field style="margin-left: 30%; margin-top: 25px;">
+            <mat-label>Tên đăng nhập</mat-label>
+            <input style="text-align: right" type="text" matInput  placeholder="Tên đăng nhập" required/>
+          </mat-form-field>
+          <mat-form-field style="margin-left: 30%; margin-top: 15px; margin-bottom: 10px;">
+            <mat-label>Mật khẩu</mat-label>
+            <input style="text-align: right" type="password" matInput  placeholder="Mật khẩu" required/>
+          </mat-form-field>
+          <div mat-dialog-actions style="padding-bottom: 0px; margin: auto;">
+            <button style="margin: auto;"  mat-button (click)="onLoginClick()">Đăng nhập</button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Đăng ký">
+        <mat-form-field style="margin-left: 30%; margin-top: 10px;">
+          <mat-label>Tên đăng nhập</mat-label>
+          <input style="text-align: right" type="text" matInput placeholder="Tên đăng nhập" required/>
+        </mat-form-field>
+        <mat-form-field style="margin-left: 30%;">
+          <mat-label>Mật khẩu</mat-label>
+          <input style="text-align: right" type="password" matInput  placeholder="Mật khẩu" required/>
+        </mat-form-field>
+        <mat-form-field style="margin-left: 30%;">
+          <mat-label>Nhập lại mật khẩu</mat-label>
+          <input style="text-align: right" type="password" matInput placeholder="Nhập lại mật khẩu" required/>
+        </mat-form-field>
+        <div mat-dialog-actions style="margin: auto; padding-bottom: 0px;">
+          <button style="margin: auto;" mat-button routerLinkActive="active" (click)="onLoginClick()">Đăng ký</button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    
+  </div>
+  
+ 
+</div>
+<div *ngIf="isLoggedIn" >
+  <h4 style="margin-left: 5%; margin-top: 130px; font-weight: 800; color: lightgreen; font-size: 1.8em;">Lưu thông tin định hướng thành công!</h4>
+  <div mat-dialog-actions style="padding-bottom: 0px; margin: auto;">
+    <button style="margin: auto;" mat-button cdkFocusInitial (click)="onOkClick()">Đồng ý</button>
+  </div>
+</div>

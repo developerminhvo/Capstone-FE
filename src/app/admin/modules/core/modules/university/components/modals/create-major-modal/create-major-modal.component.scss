@@ -1,0 +1,73 @@
+label {    
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-weight: 500;
+}
+
+input {
+    font-size: smaller;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.flex {
+    display: flex;    
+}
+
+.flex-auto {
+    flex: 1 1 auto;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-weight: 500;
+}
+
+.footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1rem;
+}
+
+.footer button {
+    margin: 0 0 0 1rem;
+}
+
+.display-none {
+    display: none;
+}
+
+.pt-4 {
+    padding-top: 1.7rem !important;
+}
+
+nz-select {
+    width: 100%;
+}
+
+input {
+    ::ng-deep {
+        .nb-theme-default [nbInput].size-medium {
+            font-weight: normal;
+      }
+    }
+}
+
+.flex-custom-container header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;    
+}
+
+.action-footer {
+    float: right;
+    padding: 15px;
+}

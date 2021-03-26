@@ -1,0 +1,30 @@
+
+.answer_widget {    
+    // position: fixed;
+    padding-bottom: 10px;
+}
+
+:host {
+    display: block;
+    // border: 1px solid black;
+    border-radius: 8px;
+}
+
+  
+.mark {
+    color: #1814e0;
+    font-family: 'Rouge Script', cursive;
+    font-size: 6.5em; 
+    font-weight: normal;  
+    margin: 0 0 50px; 
+    text-align: center; 
+    text-shadow: 1px 1px 2px #082b34; 
+    padding-top: 10px;
+}
+
+.result {
+    font-style: italic;
+    font-weight: 600;
+}
+
+
