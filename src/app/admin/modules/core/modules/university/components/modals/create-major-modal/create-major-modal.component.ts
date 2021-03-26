@@ -243,7 +243,8 @@ export class CreateMajorModalComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Vâng, tôi đồng ý!'
+      confirmButtonText: 'Vâng, tôi đồng ý!',
+      cancelButtonText: 'Thoát'
     }).then((result) => {
       if (result.isConfirmed) {
         this.listField.splice(index, 1);
